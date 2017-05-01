@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+         <service id="App.editable_role_builder" class="AppBundle\Security\EditableRolesBuilder">
+            <argument type="service" id="security.context" />
+            <argument type="service" id="sonata.admin.pool" />
+            <argument>%security.role_hierarchy.roles%</argument>
+        </service> 
+         <service id="App.security_roles" class="AppBundle\Form\Type\SecurityRolesType">
+            <tag name="form.type" alias="my_security_roles" />
+
+            <argument type="service" id="App.editable_role_builder" />
+        </service> 
+
+    </services>
+
+</container>

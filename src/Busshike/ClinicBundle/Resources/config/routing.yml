@@ -1,0 +1,11 @@
+busshike_clinic_homepage:
+    path:     /
+    defaults: { _controller: BusshikeClinicBundle:Default:index }
+
+busshike_clinic_new:
+    path:     /new
+    defaults: { _controller: BusshikeClinicBundle:Default:new }
+
+busshike_clinic_new_submited:
+    path:     /success
+    defaults: { _controller: BusshikeClinicBundle:Default:success }

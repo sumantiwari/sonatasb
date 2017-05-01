@@ -1,0 +1,45 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/service_container.html
+parameters:
+    #parameter_name: value
+
+services:
+    #service_name:
+    #    class: AppBundle\Directory\ClassName
+    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+      
+     admin.bloggertype:
+        class: AppBundle\Admin\BloggerTypeAdmin
+        arguments: [~, AppBundle\Entity\BloggerType, 'SonataAdminBundle:CRUD']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Blogger Type }
+        
+     
+     admin.blogger:
+        class: AppBundle\Admin\BloggerAdmin
+        arguments: [~, AppBundle\Entity\Blogger, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Blogger }
+#        calls:
+#            - [ addChild, ['@admin.bloggertype']]
+            
+     tutorial.blog.admin.post:
+      class: AppBundle\Admin\PostAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: tutorial_blog, label: post }
+      arguments: [null, AppBundle\Entity\Post, AppBundle:PostAdmin]
+      
+     tutorial.blog.admin.tag:
+      class: AppBundle\Admin\TagAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: tutorial_blog, label: tag }
+      arguments: [null, AppBundle\Entity\Tag, AppBundle:TagAdmin]
+      
+      
+     tutorial.blog.admin.comment:
+      class: AppBundle\Admin\CommentAdmin
+      tags:
+        - { name: sonata.admin, manager_type: orm, group: tutorial_blog, label: comment }
+      arguments: [null, AppBundle\Entity\Comment, AppBundle:CommentAdmin]
+      
+    

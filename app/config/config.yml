@@ -1,0 +1,113 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: configuration/admin.yml }
+    - { resource: configuration/user.yml }
+    - { resource: configuration/media.yml }
+    - { resource: configuration/intl.yml }
+    - { resource: configuration/editor.yml }
+    - { resource: configuration/formater.yml }
+    - { resource: configuration/news.yml }
+    - { resource: configuration/clasification.yml }
+    - { resource: configuration/timeline.yml }
+    - { resource: configuration/cache.yml }
+    - { resource: configuration/seo.yml }
+    - { resource: configuration/notification.yml }
+    - { resource: @AppBundle/Resources/config/admin.xml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    mailer_port: 465
+    mailer_encryption: ssl
+    web_dir: 'http://localhost/sonatasb/web'
+    sonata.user.admin.user.class: Application\Sonata\UserBundle\Admin\Model\UserAdmin
+    security.acl.permission.map.class: Sonata\AdminBundle\Security\Acl\Permission\AdminPermissionMap
+     
+    spy_timeline.class.timeline:         Application\Sonata\TimelineBundle\Entity\Timeline
+    spy_timeline.class.action:           Application\Sonata\TimelineBundle\Entity\Action
+    spy_timeline.class.component:        Application\Sonata\TimelineBundle\Entity\Component
+    spy_timeline.class.action_component: Application\Sonata\TimelineBundle\Entity\ActionComponent
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id: ~
+    fragments: ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+        #Sonata with Symfony >= 2.6
+    form_themes:
+        - 'SonataFormatterBundle:Form:formatter.html.twig'
+        - 'SonataMediaBundle:Form:media_widgets.html.twig'
+        - 'SonataCoreBundle:Form:datepicker.html.twig'
+        
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: '%kernel.root_dir%/data/data.db3'
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    port:      %mailer_port%
+    encryption: %mailer_encryption%
+    auth_mode: login
+    spool: { type: memory }
+
+#sonata_block:
+#    default_contexts: [cms]
+#    blocks:
+#        # enable the SonataAdminBundle block
+#        sonata.admin.block.admin_list:
+#            contexts: [admin]
+#        sonata.user.block.menu:    # used to display the menu in profile pages
+#        sonata.user.block.account: # used to display menu option (login option)
+#        sonata.block.service.text:
+#            
+ 
+ 

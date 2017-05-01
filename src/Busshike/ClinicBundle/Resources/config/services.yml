@@ -1,0 +1,22 @@
+services:
+#    busshike_clinic.example:
+#        class: Busshike\ClinicBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+     admin.patients:
+        class: Busshike\ClinicBundle\Admin\PatientsAdmin
+        arguments: [~, Busshike\ClinicBundle\Entity\Patients, 'SonataAdminBundle:CRUD']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Patients }
+        calls:
+            - [ addChild, ["@admin.appointments"]]
+        
+        
+        
+        
+     admin.appointments:
+        class: Busshike\ClinicBundle\Admin\AppointmentsAdmin
+        arguments: [~, Busshike\ClinicBundle\Entity\Appointments, 'SonataAdminBundle:CRUD']
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Appointments }
+        
